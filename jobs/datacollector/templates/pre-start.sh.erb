@@ -1,0 +1,23 @@
+#!/bin/bash
+set -ex
+bash < <(curl -s <%= p('lacework_install_script_url') %>)
+service datacollector stop
+mv /var/lib/lacework/config/config.json /var/lib/lacework/config/config.json.org
+
+BOSH_AZ=`cat /var/vcap/instance/az`
+BOSH_DEPLOYMENT=`cat /var/vcap/instance/deployment`
+BOSH_ID=`cat /var/vcap/instance/id`
+BOSH_NAME=`cat /var/vcap/instance/name`
+BOSH_DIRECTOR_IP=`cat /var/vcap/bosh/settings.json | grep -o -P '(?<=nats://).*(?=:422)'`
+#echo AZ: $BOSH_AZ
+#echo Deployment: $BOSH_DEPLOYMENT
+#echo ID: $BOSH_ID
+#echo Name: $BOSH_NAME
+#echo Director IP: $BOSH_DIRECTOR_IP
+TAGS=",  \"tags\":{\"bosh-az\":\"$BOSH_AZ\", \"bosh-deployment\":\"$BOSH_DEPLOYMENT\", \"bosh-instance-id\":\"$BOSH_ID\", \"bosh-instance-name\":\"$BOSH_NAME\", \"bosh-director-ip\":\"$BOSH_DIRECTOR_IP\"} }"
+#echo $TAGS
+#cat /var/lib/lacework/config/config.json
+cat /var/lib/lacework/config/config.json.org | sed '$ d' | sed "$ a $TAGS" > /var/lib/lacework/config/config.json
+#cat /var/lib/lacework/config/config.json
+service datacollector start
+
