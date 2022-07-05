@@ -20,4 +20,3 @@ TAGS=",  \"tags\":{\"bosh-az\":\"$BOSH_AZ\", \"bosh-deployment\":\"$BOSH_DEPLOYM
 cat /var/lib/lacework/config/config.json.org | sed '$ d' | sed "$ a $TAGS" > /var/lib/lacework/config/config.json
 #cat /var/lib/lacework/config/config.json
 service datacollector start
-

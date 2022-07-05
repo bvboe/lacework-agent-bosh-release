@@ -5,6 +5,5 @@ templates:
   pre-start.sh.erb: bin/pre-start
 
 properties:
-  lacework_install_script_url:
+  lacework_install_script_url:  
     description: Lacework install script URL
-
