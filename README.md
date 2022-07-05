@@ -6,7 +6,7 @@ Plug-in for deploying the [Lacework](https://www.lacework.net/) agent into envir
 * Link to generated Lacework agent install.sh script for the Lacework dashboard
 
 ## Configuration
-Clone the Lacework agent bosh release repository to your local disk.
+### Clone the Lacework agent bosh release repository to your local disk.
 
 ```
 $ git clone https://github.com/bvboe/lacework-agent-bosh-release
@@ -17,11 +17,11 @@ remote: Compressing objects: 100% (19/19), done.
 remote: Total 34 (delta 2), reused 31 (delta 2), pack-reused 0
 Unpacking objects: 100% (34/34), 3.59 KiB | 409.00 KiB/s, done.
 ```
-Go to the release directory
+### Go to the release directory
 ```
 $ cd lacework-agent-bosh-release/
 ```
-Create the BOSH release
+### Create the BOSH release
 ```
 $ bosh create-release --version=0.1
 Adding job 'datacollector/4d4060a872d0e30625c20f06e2b9cc48457878abf9889d515e499c5860b942a5'...
@@ -44,7 +44,7 @@ Package  Digest  Dependencies
 
 Succeeded
 ```
-Upload the release into BOSH
+### Upload the release into BOSH
 ```
 $ bosh upload-release
 Using environment 'xxx' as client 'admin'
@@ -65,7 +65,7 @@ Task 16 done
 
 Succeeded
 ```
-Validate that the new release has been uploaded
+### Validate that the new release has been uploaded
 ```
 $ bosh releases
 Using environment 'xxx' as client 'admin'
@@ -80,7 +80,7 @@ lacework   0.1      1e37f6d
 
 Succeeded
 ```
-Use `bosh runtime-config` to validate if you have an existing runtime configuration or create a new one that looks as follows:
+### Use `bosh runtime-config` to validate if you have an existing runtime configuration or create a new one that looks as follows:
 ```
 releases:
 - name: lacework
@@ -94,7 +94,7 @@ addons:
     properties:
       lacework_install_script_url: <Put Lacework agent install script URL here>
 ```
-Upload new release configuration
+### Upload new release configuration
 ```
 $ bosh update-runtime-config runtime-config.yml
 Using environment 'xxx' as client 'admin'
@@ -115,5 +115,5 @@ Continue? [yN]: y
 
 Succeeded
 ```
-
-Congratulations! You're now ready to update your existing deployments or deploy new applications with the Lacework agent built in.
+### Congratulations!
+You're now ready to update your existing deployments or deploy new applications with the Lacework agent built in.
